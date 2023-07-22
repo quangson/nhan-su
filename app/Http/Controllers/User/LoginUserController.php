@@ -25,7 +25,7 @@ class LoginUserController extends Controller
             // user value cannot be found in session
             return redirect()->route('user-index');
         }
-        return view('user.login');
+        return view('User.login');
     }
 
     public function postFormLogin(Request $request)
