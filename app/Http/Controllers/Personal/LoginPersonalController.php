@@ -31,7 +31,7 @@ class LoginPersonalController extends Controller
             return view('personal.index')->with(['employee' => $employee]);
 
         }
-        return view('personal.login');
+        return view('Personal.login');
     }
     public function postFormLogin(Request $request)
     {
