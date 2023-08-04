@@ -52,31 +52,31 @@
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nhân viên</th>
-                                    <th>Số phép</th>
-                                    <th>Số bù</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($dayoffs as $dayoff)
                                     <tr>
-
-                                  
-                                        <td>{{ $dayoff->id }}</td>
-                                        <td>{{ $dayoff->employee->name }}</td>
-                                        <td>{{ $dayoff->Annual_Leave}}</td>
-                                        <td>{{ $dayoff->Compensatory_Day}}</td>
-                                        <td>  
-                                            <div class="">
-                                                <a class="btn btn-primary d-inline-block btn-sm mt-1" href="{{ route('dayoff.edit', $dayoff->id) }}">Chỉnh sửa</a>
-                                                <a class="btn btn-primary d-inline-block btn-sm mt-1" href="{{ route('dayoff.delete', $dayoff->id) }}">Xóa</a>
-                                            </div>
-                                        </td>
+                                        <th>ID</th>
+                                        <th>Nhân viên</th>
+                                        <th>Số phép</th>
+                                        <th>Số bù</th>
+                                        <th></th>
                                     </tr>
-                                @endforeach
+                                    </thead>
+                                    <tbody>
+                                    @foreach($dayoffs as $dayoff)
+                                        <tr>
+    
+                                      
+                                            <td>{{ $dayoff->id }}</td>
+                                            <td>{{ $dayoff->employee->name }}</td>
+                                            <td>{{ $dayoff->Annual_Leave}}</td>
+                                            <td>{{ $dayoff->Compensatory_Day}}</td>
+                                            <td>  
+                                                <div class="">
+                                                    <a class="btn btn-primary d-inline-block btn-sm mt-1" href="{{ route('dayoff.edit', $dayoff->id) }}">Chỉnh sửa</a>
+                                                    <a class="btn btn-primary d-inline-block btn-sm mt-1" href="{{ route('dayoff.delete', $dayoff->id) }}">Xóa</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

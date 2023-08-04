@@ -30,6 +30,12 @@ class DayOffImport implements ToCollection,WithStartRow
                 '*.0' => 'required',
                 '*.1' => 'required',
                 '*.2' => 'required',
+                '*.3' => 'required',
+                '*.4' => 'required',
+                '*.5' => 'required',
+                '*.6' => 'required',
+                '*.7' => 'required',
+                '*.8' => 'required',
                 
             ])->validate();
 
@@ -37,7 +43,13 @@ class DayOffImport implements ToCollection,WithStartRow
                 'employee_id'     => $row[0],
                 'Annual_Leave'    => $row[1],
                 'Compensatory_Day'=> $row[2],
-                
+                'sick_leave' => $row[3],
+                'unpaid_leave'=>$row[4],
+                'school_leave'=>$row[5],
+                'regime_leave'=>$row[6],
+                'not_leave'=>$row[7],
+                'leave'=>$row[8]
+
             ];
 //            dd($data);
             $checkIfDayoffsExists = DayOff::create($data);
