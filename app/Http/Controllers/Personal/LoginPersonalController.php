@@ -28,9 +28,11 @@ class LoginPersonalController extends Controller
             // user value cannot be found in session
             $employeeId = session()->get('personal_login');
             $employee = $this->employeeRepository->find($employeeId);
+          
             return view('personal.index')->with(['employee' => $employee]);
-
+  
         }
+     
         return view('Personal.login');
     }
     public function postFormLogin(Request $request)
@@ -49,8 +51,10 @@ class LoginPersonalController extends Controller
             if (!empty($employee)) {
                 if (!empty($request->get('password')) && ($request->get('password') == $employee->pass)) {
                     session()->put('personal_login', $employee->id);
+                   
                     return view('personal.index')->with(['employee' => $employee]);
                 }
+                
             }
         } else {
             return redirect()->back();

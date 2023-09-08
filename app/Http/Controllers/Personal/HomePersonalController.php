@@ -15,6 +15,7 @@ class HomePersonalController extends Controller
     {
         
         return view('Personal.index');
+    
     }
 
     /**
