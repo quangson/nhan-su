@@ -52,7 +52,7 @@ class LoginPersonalController extends Controller
                 if (!empty($request->get('password')) && ($request->get('password') == $employee->pass)) {
                     session()->put('personal_login', $employee->id);
                    
-                    return view('personal.index')->with(['employee' => $employee]);
+                    return view('Personal.index')->with(['employee' => $employee]);
                 }
                 
             }
