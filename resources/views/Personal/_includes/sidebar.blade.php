@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <div class="brand-link logo-switch" style="display: flex; align-items: center;">
     <img src="/assets/img/Logo.jpeg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <a href="{{ route('personal-login') }}"><span class="brand-text font-weight-light">{{ $employee->name }}</span></a>
-     {{-- <span class="brand-text font-weight-light">{{ $employee->name }}</span> --}}
+    {{-- <a href="{{ route('personal-index') }}"><span class="brand-text font-weight-light">{{ $employee->name }}</span></a> --}}
+     <span class="brand-text font-weight-light">{{ $employee->name }}</span>
   </div>
   <div class="sidebar">
 
