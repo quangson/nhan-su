@@ -13,6 +13,8 @@ use App\Repositories\Interfaces\TimeKeepStatusRepository;
 use App\Repositories\Interfaces\DayoffRepository;
 use App\Models\Employee;
 use App\Models\TimeKeepStatus;
+
+use Carbon\Carbon;
 use Excel;
 
 
@@ -29,6 +31,7 @@ class TimekeepAccountUserController extends Controller
     private $timeKeepStatusRepository;
     private $dayoffRepository;
 
+    
     public function __construct(TimekeepAccountRepository $timekeepaccountRepository, GroupRepository $groupRepository, EmployeeRepository $employeeRepository,
                                 TimeKeepStatusRepository $timeKeepStatusRepository, DayoffRepository $dayoffRepository)
     {
@@ -56,14 +59,27 @@ class TimekeepAccountUserController extends Controller
         $currentDate = now()->format('d/m/Y');
         $group = $this->groupRepository->find(session()->get('user_login'));
         $statuses = $request->get('timekeep_status');
+        $today = Carbon::now();
+
         foreach ($statuses as $key => $status) {
             $employee = $this->employeeRepository->find($key);
             $dayOff = $this->dayoffRepository->where('employee_id', $key)->first();
             // Ngày trực
             if ($status == config('constant.timekeep_status_key.Trực')) {
-                $compensatory_dayT = $dayOff->Compensatory_Day + 1;
-                $data = ['Compensatory_Day' => $compensatory_dayT];
-                $this->dayoffRepository->update($data, $dayOff->id);
+                if ($today->isWeekend()) {
+        
+                    $compensatory_dayT = $dayOff->Compensatory_Day + 2;
+                    $data = ['Compensatory_Day' => $compensatory_dayT];
+                    $this->dayoffRepository->update($data, $dayOff->id);
+                }else{
+                    $compensatory_dayT = $dayOff->Compensatory_Day + 1;
+                    $data = ['Compensatory_Day' => $compensatory_dayT];
+          
+                    $this->dayoffRepository->update($data, $dayOff->id);
+                }
+                // $compensatory_dayT = $dayOff->Compensatory_Day + 1;
+                // $data = ['Compensatory_Day' => $compensatory_dayT];
+                // $this->dayoffRepository->update($data, $dayOff->id);
 
             }
             // Nghỉ ngày Bù

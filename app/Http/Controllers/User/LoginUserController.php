@@ -20,8 +20,8 @@ class LoginUserController extends Controller
 
     public function showLoginForm(Request $request)
     {
-        
-        if ($request->session()->exists('user_admin')) {
+
+        if ($request->session()->exists('user_login')) {
             // user value cannot be found in session
             return redirect()->route('user-index');
         }
@@ -30,7 +30,7 @@ class LoginUserController extends Controller
 
     public function postFormLogin(Request $request)
     {
-        
+
         if (!empty($request->get('user'))) {
             $timekeep = $this->timekeepAccountRepository->where('account', $request->get('user'))->first();
             if (!empty($timekeep)) {

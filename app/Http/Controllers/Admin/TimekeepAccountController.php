@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Repositories\Interfaces\TimekeepAccountRepository;
 use App\Repositories\Interfaces\GroupRepository;
@@ -10,6 +11,7 @@ use App\Repositories\Interfaces\EmployeeRepository;
 use App\Repositories\Interfaces\TimeKeepStatusRepository;
 
 use Excel;
+use function GuzzleHttp\Promise\all;
 
 
 class TimekeepAccountController extends Controller
@@ -181,5 +183,36 @@ class TimekeepAccountController extends Controller
         $this->timeKeepStatusRepository->update(['status' => $status], $statusId);
 
         return redirect()->route('timekeepPersonnal.list', $employeeId);
+    }
+
+    public function checkTimekeep()
+    {
+        $groups = $this->groupRepository->get();
+        return view('Admin.pages.checkTimekeep.checkTimekeep')->with(['groups' => $groups]);
+    }
+
+    public function checkTimekeepGroup(Request $request, $id)
+    {
+        $group = $this->groupRepository->find($id);
+        $searchDate = null;
+        $employees = null;
+        if ($request->has('day') && $request->has('month') && $request->has('year')) {
+            $searchDate = $request->get('year') . '-' . $request->get('month') . '-' . $request->get('day');
+        }
+
+        if (!empty($searchDate)) {
+            $employees = $this->employeeRepository->where('group_id', $group->id)->whereHas('timekeepStatuses', function ($query) use ($searchDate) {
+                $query->whereDate('created_at', '=', $searchDate);
+            })
+                ->get();
+//            dd($employees);
+        }
+//        dd(1);
+        if (!empty($employees)) {
+//            dd(1);
+            return view('Admin.pages.checkTimekeep.checkTimekeepGroup')->with(['group' => $group, 'employees' => $employees]);
+        }
+//        dd($group);
+        return view('Admin.pages.checkTimekeep.checkTimekeepGroup')->with(['group' => $group]);
     }
 }

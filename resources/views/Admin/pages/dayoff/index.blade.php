@@ -50,6 +50,11 @@
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body">
+                            {{-- <form class="form-inline" action="{{ route('dayoff.list') }}" method="get">
+                                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="{{ request()->has('search') ? request()->input('search') : '' }}">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                
+                            </form> --}}
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>

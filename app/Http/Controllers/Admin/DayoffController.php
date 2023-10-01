@@ -28,8 +28,10 @@ class DayoffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+
         $employees = $this->employeeRepository->all();
         $dayoffs = $this->dayoffRepository->with('employee')->get();
         return view('Admin.pages.dayoff.index')->with(['dayoffs' => $dayoffs, 'employees' => $employees]);

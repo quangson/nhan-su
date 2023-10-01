@@ -68,6 +68,10 @@ Route::middleware(['checkLogin'])->group(function () {
     Route::get('timekeep-list/{id}', [TimekeepAccountController::class, 'listTimeKeepPersonal'])->name('timekeepPersonnal.list');
     Route::get('timekeep-edit/{id}', [TimekeepAccountController::class, 'editTimeKeepPersonal'])->name('timekeepPersonnal.edit');
     Route::post('timekeep-update', [TimekeepAccountController::class, 'updateTimeKeepPersonal'])->name('timekeepPersonnal.update');
+
+    Route::get('kiem-tra-cham-cong', [TimekeepAccountController::class, 'checkTimekeep'])->name('checkTimekeepPersonnal.show');
+    Route::get('kiem-tra-cham-cong/{id}', [TimekeepAccountController::class, 'checkTimekeepGroup'])->name('checkTimekeepGroup.show');
+
 });
 
 Route::get('he-thong', [LoginUserController::class, 'showLoginForm'])->name('user-login');
