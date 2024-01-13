@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Personal;
 
 use App\Repositories\Interfaces\EmployeeRepository;
 use App\Repositories\Interfaces\DayoffRepository;
+use App\Repositories\Interfaces\GroupRepository;
 use Illuminate\Http\Request;
+use function GuzzleHttp\Promise\all;
 
 class PersonalController extends Controller
 {
@@ -16,11 +18,13 @@ class PersonalController extends Controller
      */
     private $employeeRepository;
     private $dayoffRepository;
+    private $groupRepository;
 
-    public function __construct(EmployeeRepository $employeeRepository, DayoffRepository $dayoffRepository)
+    public function __construct(EmployeeRepository $employeeRepository, DayoffRepository $dayoffRepository, GroupRepository $groupRepository)
     {
         $this->employeeRepository = $employeeRepository;
         $this->dayoffRepository = $dayoffRepository;
+        $this->groupRepository = $groupRepository;
     }
     /**
      * Display a listing of the resource.
@@ -185,6 +189,35 @@ class PersonalController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @return void
+     */
+    public function getListTimeKeep(Request $request, $id)
+    {
+        $employee = $this->employeeRepository->find($id);
+
+        $group = $this->groupRepository->find($employee->group_id);
+        $searchDate = null;
+        $employees = null;
+        if ($request->has('day') && $request->has('month') && $request->has('year')) {
+            $searchDate = $request->get('year') . '-' . $request->get('month') . '-' . $request->get('day');
+        }
+//        dd($group);
+        if (!empty($searchDate)) {
+            $employees = $this->employeeRepository->where('group_id', $group->id)->whereHas('timekeepStatuses', function ($query) use ($searchDate) {
+                $query->whereDate('created_at', '=', $searchDate);
+            })
+                ->get();
+        }
+        if (!empty($employees)) {
+//            dd(1);
+            return view('Personal.pages.list-time-keep')->with(['employee' => $employee, 'employees' => $employees]);
+        }
+//dd(1);
+        return view('Personal.pages.list-time-keep')->with(['employee' => $employee]);
+//        return view('Personal.pages.list-time-keep')->with(['group' => $group]);
     }
 
 

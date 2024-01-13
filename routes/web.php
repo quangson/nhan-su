@@ -99,6 +99,7 @@ Route::middleware(['checkLoginPersonal'])->group(function () {
     Route::get('danh-sach-nghi-che-do', [PersonalController::class, 'getRegimeLeave'])->name('personal-Regime-Leave');
     Route::get('danh-sach-nghi', [PersonalController::class, 'getLeave'])->name('personal-Leave');
     Route::get('danh-sach-nghi-khong-phep', [PersonalController::class, 'getNotLeave'])->name('personal-Not-Leave');
+    Route::get('danh-sach-cham-cong-phong/{id}', [PersonalController::class, 'getListTimeKeep'])->name('personal-list-time-keep');
     Route::get('personal-logout', [HomePersonalController::class, 'logout'])->name('personal-logout');
 
 });

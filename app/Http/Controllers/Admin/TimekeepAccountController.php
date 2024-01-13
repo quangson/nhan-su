@@ -205,14 +205,11 @@ class TimekeepAccountController extends Controller
                 $query->whereDate('created_at', '=', $searchDate);
             })
                 ->get();
-//            dd($employees);
         }
-//        dd(1);
         if (!empty($employees)) {
-//            dd(1);
             return view('Admin.pages.checkTimekeep.checkTimekeepGroup')->with(['group' => $group, 'employees' => $employees]);
         }
-//        dd($group);
+
         return view('Admin.pages.checkTimekeep.checkTimekeepGroup')->with(['group' => $group]);
     }
 }

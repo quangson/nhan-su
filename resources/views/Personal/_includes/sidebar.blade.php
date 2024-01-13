@@ -62,6 +62,12 @@
             <p>Thông tin nghỉ không phép</p>
         </a>
       </li>
+      <li class="nav-item">
+          <a href="{{ route('personal-list-time-keep', session()->get('personal_login')) }}" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>Thông tin cham cong trong phong</p>
+          </a>
+      </li>
       {{-- <li class="nav-item">
         <a href="{{ route('set-timekeep-user') }}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>

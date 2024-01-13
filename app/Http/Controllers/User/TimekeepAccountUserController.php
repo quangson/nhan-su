@@ -31,7 +31,7 @@ class TimekeepAccountUserController extends Controller
     private $timeKeepStatusRepository;
     private $dayoffRepository;
 
-    
+
     public function __construct(TimekeepAccountRepository $timekeepaccountRepository, GroupRepository $groupRepository, EmployeeRepository $employeeRepository,
                                 TimeKeepStatusRepository $timeKeepStatusRepository, DayoffRepository $dayoffRepository)
     {
@@ -48,7 +48,7 @@ class TimekeepAccountUserController extends Controller
         $group = $this->groupRepository->find($groupId);
         $currentDate = now()->format('d/m/Y');
         $employees = Employee::where('group_id', $groupId)->get();
-        $flag = !empty(TimeKeepStatus::whereDate('created_at', '=', now()->toDateString())->first());
+        $flag = !empty(TimeKeepStatus::whereDate('created_at', '=', now()->toDateString())->where('employee_id', '=', $employees[0]->id)->first());
         if ($flag) {
             return view('User.timekeep.after-submit')->with(['employees' => $employees, 'currentDate' => $currentDate]);
         }
@@ -67,14 +67,14 @@ class TimekeepAccountUserController extends Controller
             // Ngày trực
             if ($status == config('constant.timekeep_status_key.Trực')) {
                 if ($today->isWeekend()) {
-        
+
                     $compensatory_dayT = $dayOff->Compensatory_Day + 2;
                     $data = ['Compensatory_Day' => $compensatory_dayT];
                     $this->dayoffRepository->update($data, $dayOff->id);
                 }else{
                     $compensatory_dayT = $dayOff->Compensatory_Day + 1;
                     $data = ['Compensatory_Day' => $compensatory_dayT];
-          
+
                     $this->dayoffRepository->update($data, $dayOff->id);
                 }
                 // $compensatory_dayT = $dayOff->Compensatory_Day + 1;
