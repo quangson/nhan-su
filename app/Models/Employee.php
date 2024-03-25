@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
@@ -57,6 +58,11 @@ class Employee extends Model implements Transformable
     public function getTimeKeepTodayAttribute()
     {
         $status = optional(TimeKeepStatus::where('employee_id', $this->id)->whereDate('created_at', '=', now()->toDateString())->first())->status;
+        return $status;
+    }
+    public function getTimeKeepWithDay($date)
+    {
+        $status = optional(TimeKeepStatus::where('employee_id', $this->id)->whereDate('created_at', '=', Carbon::createFromFormat('d/m/Y', $date)->startOfDay())->first())->status;
         return $status;
     }
     public function getDayoffRemainThisYearAttribute()

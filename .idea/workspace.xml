@@ -5,12 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45cc1ab2-4d04-440f-9440-4fbe657a5d92" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/Personal/pages/list-time-keep.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/User/timekeep/select-date.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/TimekeepAccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/TimekeepAccountController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Personal/PersonalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Personal/PersonalController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/User/TimekeepAccountUserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/User/TimekeepAccountUserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Personal/_includes/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Personal/_includes/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Employee.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Employee.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/TimeKeepStatus.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/TimeKeepStatus.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/User/_includes/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/User/_includes/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/User/timekeep/after-submit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/User/timekeep/after-submit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/User/timekeep/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/User/timekeep/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +26,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

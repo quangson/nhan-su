@@ -8,7 +8,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu">
         <li class="nav-item">
-            <a href="{{ route('set-timekeep-user') }}" class="nav-link">
+            <a href="{{ route('set-date-timekeep-user') }}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>Chấm Công</p>
             </a>

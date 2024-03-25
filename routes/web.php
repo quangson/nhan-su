@@ -82,6 +82,7 @@ Route::middleware(['checkLoginUser'])->group(function () {
     Route::get('user', [HomeUserController::class, 'index'])->name('user-index');
     Route::get('user-logout', [HomeUserController::class, 'logout'])->name('user-logout');
     Route::get('cham-cong', [TimekeepAccountUserController::class, 'setTimeKeep'])->name('set-timekeep-user');
+    Route::get('select-date', [TimekeepAccountUserController::class, 'setDateTimeKeep'])->name('set-date-timekeep-user');
     Route::post('timekeep-update-status',[TimekeepAccountUserController::class, 'updateTimekeepStatus'])->name('timekeep-update-status');
 });
 

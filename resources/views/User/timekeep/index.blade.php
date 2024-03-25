@@ -37,6 +37,9 @@
                                 <form id='timekeep-form' action="{{ route('timekeep-update-status') }}" method="post">
                                     @csrf
                                     <div>
+                                        <input type="hidden" name="day" value="{{ request('day') }}">
+                                        <input type="hidden" name="month" value="{{ request('month') }}">
+                                        <input type="hidden" name="year" value="{{ request('year') }}">
                                         @foreach($employees as $employee)
                                             <tr>
                                                 <td>{{ $employee->name }}</td>
@@ -56,13 +59,13 @@
                                     {{-- <div>
                                         <button id='submit' class="btn btn-primary">Submit</button>
                                     </div> --}}
-                                    
+
                                     <div class="d-flex justify-content-center">
                                         <button class="btn btn-primary">Chấm công</button>
                                     </div>
 
                                 </form>
-                              
+
                                 </tbody>
                             </table>
                         </div>

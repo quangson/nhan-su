@@ -14,7 +14,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 class TimeKeepStatus extends Model implements Transformable
 {
     use TransformableTrait;
-
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
@@ -23,7 +23,9 @@ class TimeKeepStatus extends Model implements Transformable
     protected $fillable = [
         'employee_id',
         'status',
-        'reason'
+        'reason',
+        'created_at',
+        'updated_at',
     ];
 
 }

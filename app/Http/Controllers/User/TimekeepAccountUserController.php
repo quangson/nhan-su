@@ -42,31 +42,50 @@ class TimekeepAccountUserController extends Controller
         $this->dayoffRepository = $dayoffRepository;
     }
 
+    public function setDateTimeKeep()
+    {
+        return view('User.timekeep.select-date');
+    }
+
     public function setTimeKeep(Request $request) {
 
         $groupId = $request->session()->exists('user_login') ? $request->session()->get('user_login') : '';
-        $group = $this->groupRepository->find($groupId);
-        $currentDate = now()->format('d/m/Y');
-        $employees = Employee::where('group_id', $groupId)->get();
-        $flag = !empty(TimeKeepStatus::whereDate('created_at', '=', now()->toDateString())->where('employee_id', '=', $employees[0]->id)->first());
-        if ($flag) {
-            return view('User.timekeep.after-submit')->with(['employees' => $employees, 'currentDate' => $currentDate]);
+        // Lấy tham số từ URL
+        $day = $request->query('day');
+        $month = $request->query('month');
+        $year = $request->query('year');
+        $dateShow = now();
+        if ($day !== null && $month !== null && $year !== null) {
+            // Tạo đối tượng DateTime từ thông tin trong URL
+            $date = \Date::createFromFormat('d/m/Y', "$day/$month/$year");
         }
-        return view('User.timekeep.index')->with(['employees' => $employees, 'currentDate' => $currentDate]);
+
+        $dateShow = $date->format('d/m/Y');
+
+        $employees = Employee::where('group_id', $groupId)->get();
+
+        $flag = !empty(TimeKeepStatus::whereDate('created_at', '=', $date->toDateString())->where('employee_id', '=', $employees[0]->id)->first());
+        if ($flag) {
+            return view('User.timekeep.after-submit')->with(['employees' => $employees, 'currentDate' => $dateShow]);
+        }
+        return view('User.timekeep.index')->with(['employees' => $employees, 'currentDate' => $dateShow]);
     }
 
     public function updateTimekeepStatus(Request $request){
-        $currentDate = now()->format('d/m/Y');
         $group = $this->groupRepository->find(session()->get('user_login'));
         $statuses = $request->get('timekeep_status');
-        $today = Carbon::now();
+
+        $day = $request->get('day');
+        $month = $request->get('month');
+        $year = $request->get('year');
+        $date = Carbon::createFromFormat('d/m/Y', "$day/$month/$year");
 
         foreach ($statuses as $key => $status) {
             $employee = $this->employeeRepository->find($key);
             $dayOff = $this->dayoffRepository->where('employee_id', $key)->first();
             // Ngày trực
             if ($status == config('constant.timekeep_status_key.Trực')) {
-                if ($today->isWeekend()) {
+                if ($date->isWeekend()) {
 
                     $compensatory_dayT = $dayOff->Compensatory_Day + 2;
                     $data = ['Compensatory_Day' => $compensatory_dayT];
@@ -77,10 +96,6 @@ class TimekeepAccountUserController extends Controller
 
                     $this->dayoffRepository->update($data, $dayOff->id);
                 }
-                // $compensatory_dayT = $dayOff->Compensatory_Day + 1;
-                // $data = ['Compensatory_Day' => $compensatory_dayT];
-                // $this->dayoffRepository->update($data, $dayOff->id);
-
             }
             // Nghỉ ngày Bù
             if ($status == config('constant.timekeep_status_key.Nghỉ bù nguyên ngày')) {
@@ -168,11 +183,13 @@ class TimekeepAccountUserController extends Controller
             $this->timeKeepStatusRepository->create([
                 'employee_id' => $key,
                 'status'      => $status,
+                'created_at'  => $date,
+                'updated_at'  => $date,
             ]);
         }
 
         $employees = Employee::where('group_id', $group->id)->get();
 
-        return view('User.timekeep.after-submit')->with(['employees' => $employees, 'currentDate' => $currentDate]);
+        return view('User.timekeep.after-submit')->with(['employees' => $employees, 'currentDate' => ($date->day.'/'.$date->month.'/'.$date->year)]);
     }
 }

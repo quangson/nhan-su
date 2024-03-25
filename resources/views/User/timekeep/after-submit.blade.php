@@ -20,10 +20,10 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
-                                
+
                                 <thead>
                                 <tr>
-                                    
+
                                     <th>Tên Nhân viên</th>
                                     <th>Khoa/Phòng</th>
                                     <th>Trạng thái</th>
@@ -35,20 +35,20 @@
                                     @csrf
                                     <div>
                                         @foreach($employees as $employee)
-                                            <tr>                                                                                                        
+                                            <tr>
                                                 <td>{{ $employee->name }}</td>
                                                 <td>{{ $employee->group->name }}</td>
-                                                <td>{{ config('constant.timekeep_status.'.$employee->time_keep_today) }}</td>                                                
+                                                <td>{{ config('constant.timekeep_status.'.$employee->getTimeKeepWithDay($currentDate)) }}</td>
                                             </tr>
                                         @endforeach
-                                    </div>                                
+                                    </div>
                                     {{-- <div>
                                         <button id='submit-form' class="btn btn-primary">Submit</button>
                                     </div> --}}
-                                    
-                                 
+
+
                                 </form>
-                            
+
                                 </tbody>
                             </table>
                         </div>
@@ -76,7 +76,7 @@
     <script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
-        $(function () {    
+        $(function () {
 
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
